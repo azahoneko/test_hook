@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { useCustomHook } from "../hooks";
+import { useCustomHook } from "../utils/hooks";
 
 interface props {
     possibleValues: Array<number>;

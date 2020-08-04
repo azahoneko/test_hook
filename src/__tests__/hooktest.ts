@@ -1,5 +1,5 @@
 import { renderHook, act } from "@testing-library/react-hooks";
-import { EMPTY_OR_INCLUDES_LESS_THEN_ONE, NOT_PART_OF_POSSIBLE, useCustomHook } from "../hooks";
+import { EMPTY_OR_INCLUDES_LESS_THEN_ONE, NOT_PART_OF_POSSIBLE, useCustomHook } from "../utils/hooks";
 
 describe("Custom hook tests", () => {
     it("Should throw if one of possible values are less or equal 0", () => {
