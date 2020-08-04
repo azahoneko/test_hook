@@ -1,10 +1,54 @@
-Test app.
+# Custom react hook
 
-Stack - Typescript, react.
-Testings are done by react-hooks-testing-library.
+Test project with typescript/react stack, hook tested with react-hooks-testing-library.
 
-Developed custom react-hook which accept list of possible values to store (all the values are >= 1), and iniitial value, which must be a part of possible values.
+## Task description
 
-Upon changing state it cheks if new value is a part of possible values, otherwise Error is thrown.
+Build a react hook that a programmer can use to toggle between n arbitrary states where n >= 1. I can feed the hook a set of possible states and an initial state. It returns the current state and a function to let me set a new state.
+Use Typescript and write a test suite for it using jest.
 
-Showed example with a list of buttons which is rendered depending on possible values props, click in button triggers custom react-hook change function.
+## Usage
+```npm start```
+to start the project
+
+```npm test```
+to run tests
+
+## Example
+```javascript
+import React, { FunctionComponent } from "react";
+import { useCustomHook } from "../utils/hooks";
+
+interface Iprops {
+    possibleValues: Array<any>;
+    initialState: any;
+}
+
+const TestedComponent: FunctionComponent<Iprops> = (props: Iprops) => {
+    const { possibleValues, initialState } = props;
+    const [value, setValue] = useCustomHook(possibleValues, initialState)
+    return (
+        <div>
+            <p>Current value: {value}</p>
+            {
+                possibleValues.map(val => (
+                    <button
+                        key={Math.random()}
+                        disabled={value === val}
+                        onClick={() => setValue(val)}
+                    >
+                        {val}
+                    </button>
+                ))
+            }
+        </div>
+    )
+};
+
+TestedComponent.defaultProps = {
+    possibleValues: [1, 2, 3],
+    initialState: 1
+};
+
+export default TestedComponent;
+```
