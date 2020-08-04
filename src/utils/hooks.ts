@@ -7,17 +7,17 @@ export const useCustomHook = (possibleValues : Array<any>, initialValue: number)
     const throwError = (text: string) => {
         throw new Error(text)
     };
-    if (!possibleValues.length || !possibleValues.every(val => val >= 1)) {
+    if (!possibleValues.length) {
         throwError(EMPTY_OR_INCLUDES_LESS_THEN_ONE);
     }
-    if (!possibleValues.includes(initialValue) || !(initialValue >= 1)) {
+    if (!possibleValues.includes(initialValue)) {
         throwError(NOT_PART_OF_POSSIBLE);
     }
     const [currentValue, setValue] = useState(initialValue);
 
     const changeValue = useCallback(
     (value: number): void => {
-            if (value >= 1 && possibleValues.includes(value)) {
+            if (possibleValues.includes(value)) {
                 setValue(value)
             }
         },
