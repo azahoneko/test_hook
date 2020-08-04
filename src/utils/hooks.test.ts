@@ -23,14 +23,20 @@ describe("Custom hook tests", () => {
         const state = [1, 2];
         const initialState = 2;
         const { result } = renderHook(() => useCustomHook(state, initialState));
-        act(() => result.current[1](3));
+        act(() => result.current[1]('a'));
         expect(result.current[0]).toEqual(initialState);
     });
-    it("Shouldn't change current state if new isn't valid", () => {
-        const state = [1, 2];
-        const initialState = 2;
+    it("Should set initial state correctly", () => {
+        const state = [23, 46, 72];
+        const initialState = state[2];
         const { result } = renderHook(() => useCustomHook(state, initialState));
-        act(() => result.current[1](3));
         expect(result.current[0]).toEqual(initialState);
+    });
+    it("Should change state", () => {
+        const state = [1, 2, 3];
+        const { result } = renderHook(() => useCustomHook(state, state[0]));
+        const newValue = state[1];
+        act(() => result.current[1](newValue));
+        expect(result.current[0]).toEqual(newValue);
     });
 });
