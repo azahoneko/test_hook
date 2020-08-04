@@ -1,5 +1,5 @@
 import { renderHook, act } from "@testing-library/react-hooks";
-import { EMPTY_OR_INCLUDES_LESS_THEN_ONE, NOT_PART_OF_POSSIBLE, useCustomHook } from "../utils/hooks";
+import { EMPTY_OR_INCLUDES_LESS_THEN_ONE, NOT_PART_OF_POSSIBLE, useCustomHook } from "./hooks";
 
 describe("Custom hook tests", () => {
     it("Should throw if one of possible values are less or equal 0", () => {
@@ -18,6 +18,13 @@ describe("Custom hook tests", () => {
         const { result } = renderHook(() => useCustomHook(state, 5));
         expect(result.error).toBeDefined();
         expect(result.error.message).toBe(NOT_PART_OF_POSSIBLE);
+    });
+    it("Shouldn't change current state if new isn't valid", () => {
+        const state = [1, 2];
+        const initialState = 2;
+        const { result } = renderHook(() => useCustomHook(state, initialState));
+        act(() => result.current[1](3));
+        expect(result.current[0]).toEqual(initialState);
     });
     it("Shouldn't change current state if new isn't valid", () => {
         const state = [1, 2];
